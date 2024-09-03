@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c431um1xmu2kd"]
+[gd_scene load_steps=5 format=3 uid="uid://c431um1xmu2kd"]
 
 [ext_resource type="PackedScene" uid="uid://c1gbcmjhnqmcg" path="res://topic/dummy.tscn" id="1_mdlan"]
+[ext_resource type="Material" uid="uid://dh2iigws8n8d2" path="res://shaders/cloaked_material.tres" id="2_dvidu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qbbgn"]
 size = Vector3(50, 2, 50)
@@ -31,5 +32,23 @@ projection = 1
 size = 3.0
 
 [node name="Dummy" parent="." instance=ExtResource("1_mdlan")]
+
+[node name="Dummy_Base" parent="Dummy" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Body" parent="Dummy/Dummy_Base" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_ArmLeft" parent="Dummy/Dummy_Base/Dummy_Body" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_ArmRight" parent="Dummy/Dummy_Base/Dummy_Body" index="1"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Head" parent="Dummy/Dummy_Base/Dummy_Body" index="2"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Target" parent="Dummy/Dummy_Base/Dummy_Body" index="3"]
+surface_material_override/0 = ExtResource("2_dvidu")
 
 [editable path="Dummy"]
