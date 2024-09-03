@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://c431um1xmu2kd"]
+
+[ext_resource type="PackedScene" uid="uid://dylm2qhkd3mj1" path="res://assets/KayKit_Prototype_Bits_1.0_FREE/Assets/gltf/Dummy_Base.gltf" id="1_nu7yh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qbbgn"]
+size = Vector3(50, 2, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nj38u"]
+size = Vector3(50, 2, 50)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2f4du"]
+
+[node name="VisualShader3D" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_qbbgn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_nj38u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3, 3)
+shadow_enabled = true
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="Dummy_Base" parent="CharacterBody3D" instance=ExtResource("1_nu7yh")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_2f4du")
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(0.866025, -0.12941, 0.482963, 0, 0.965926, 0.258819, -0.5, -0.224144, 0.836516, 1, 2, 2)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+projection = 1
+size = 3.0
