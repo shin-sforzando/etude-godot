@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dh2iigws8n8d2"]
+
+[ext_resource type="Shader" uid="uid://14t03vk8tyrb" path="res://shaders/cloaked_shader.tres" id="1_ulf8d"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ulf8d")
