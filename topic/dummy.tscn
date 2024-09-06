@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1gbcmjhnqmcg"]
+
+[ext_resource type="PackedScene" uid="uid://dylm2qhkd3mj1" path="res://assets/KayKit_Prototype_Bits_1.0_FREE/Assets/gltf/Dummy_Base.gltf" id="1_6m2ah"]
+
+[node name="Dummy" instance=ExtResource("1_6m2ah")]

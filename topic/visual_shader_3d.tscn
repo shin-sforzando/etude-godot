@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://c431um1xmu2kd"]
+
+[ext_resource type="PackedScene" uid="uid://c1gbcmjhnqmcg" path="res://topic/dummy.tscn" id="1_mdlan"]
+[ext_resource type="Material" uid="uid://dh2iigws8n8d2" path="res://shaders/cloaked_material.tres" id="2_dvidu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qbbgn"]
+size = Vector3(50, 2, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nj38u"]
+size = Vector3(50, 2, 50)
+
+[node name="VisualShader3D" type="Node"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_qbbgn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_nj38u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3, 3)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Marker3D" parent="."]
+transform = Transform3D(0.866025, -0.12941, 0.482963, 0, 0.965926, 0.258819, -0.5, -0.224144, 0.836516, 1, 2, 2)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+projection = 1
+size = 3.0
+
+[node name="Dummy" parent="." instance=ExtResource("1_mdlan")]
+
+[node name="Dummy_Base" parent="Dummy" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Body" parent="Dummy/Dummy_Base" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_ArmLeft" parent="Dummy/Dummy_Base/Dummy_Body" index="0"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_ArmRight" parent="Dummy/Dummy_Base/Dummy_Body" index="1"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Head" parent="Dummy/Dummy_Base/Dummy_Body" index="2"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[node name="Dummy_Target" parent="Dummy/Dummy_Base/Dummy_Body" index="3"]
+surface_material_override/0 = ExtResource("2_dvidu")
+
+[editable path="Dummy"]

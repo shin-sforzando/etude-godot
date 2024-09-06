@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4g4q4e8qqkya"]
+
+[ext_resource type="Shader" uid="uid://b7641qutff7s" path="res://shaders/visual_shader_2d.tres" id="1_dy52v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kg5wi"]
+shader = ExtResource("1_dy52v")
+shader_parameter/color_a = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/color_b = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/color_c = Color(1, 1, 0.5, 1)
+shader_parameter/color_d = Color(0.8, 0.9, 0.3, 1)
+shader_parameter/zoom = 1.0
+shader_parameter/iteratrions = 10
+shader_parameter/subtract = 0.5
+shader_parameter/multiply = 1.2
+
+[node name="VisualShader2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_kg5wi")
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cubktrvnxn1ee"]
+
+[ext_resource type="Shader" path="res://shaders/sub_viewport_texture.gdshader" id="1_6s4le"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2kgi"]
+shader = ExtResource("1_6s4le")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2yxq2"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_esbl8"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4xy13"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_2yxq2")
+metallic_specular = 1.0
+roughness_texture = SubResource("ViewportTexture_esbl8")
+roughness_texture_channel = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_mtv73"]
+
+[node name="SubViewportTexture" type="Node3D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+use_hdr_2d = true
+size = Vector2i(1024, 512)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_y2kgi")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_4xy13")
+mesh = SubResource("SphereMesh_mtv73")
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
