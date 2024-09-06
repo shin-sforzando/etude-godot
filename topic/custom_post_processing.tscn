@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://gl3og26ccgqn"]
+
+[ext_resource type="Texture2D" uid="uid://bgwgqbrj02qi" path="res://assets/KayKit_Prototype_Bits_1.0_FREE/sample.png" id="1_pymxd"]
+[ext_resource type="Shader" path="res://shaders/arlez80.gdshader" id="2_qb7gy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j8v6t"]
+shader = ExtResource("2_qb7gy")
+shader_parameter/size = Vector2(32, 28)
+
+[node name="CustomPostProcessing" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pymxd")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_j8v6t")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
