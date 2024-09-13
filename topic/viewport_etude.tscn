@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=3 uid="uid://yfqghrts2nt6"]
+
+[ext_resource type="Texture2D" uid="uid://b2w11rxv2r0m4" path="res://assets/AllSkyFree_Skyboxes/Epic_BlueSunset_EquiRect_flat.png" id="1_3dwl8"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ch75m"]
+panorama = ExtResource("1_3dwl8")
+
+[sub_resource type="Sky" id="Sky_n0cmn"]
+sky_material = SubResource("PanoramaSkyMaterial_ch75m")
+
+[sub_resource type="Environment" id="Environment_g8amw"]
+background_mode = 2
+sky = SubResource("Sky_n0cmn")
+fog_mode = 1
+fog_density = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8d43"]
+metallic = 1.0
+roughness = 0.0
+refraction_scale = 0.71
+grow_amount = 0.859
+
+[sub_resource type="SphereMesh" id="SphereMesh_f8own"]
+
+[sub_resource type="Curve3D" id="Curve3D_wvv5q"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -1.12825, -1.53385, 1.5712, 0, 0, 0, 0, 0, 0, 1.8386, -1.59188, -0.0134723, 0, 0, 0, 0, 0, 0, 2.3518, 0.303675, -1.47384, 0, 0, 0, 0, 0, 0, 1.04001, 1.30948, -1.38332, 0, 0, 0, 0, 0, 0, -0.873133, 1.24371, -0.297229, 0, 0, 0, 0, 0, 0, -2.21917, 0.415861, 0.953462, 0, 0, 0, 0, 0, 0, -1.12825, -1.53385, 1.5712),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="GDScript" id="GDScript_1fsrb"]
+script/source = "extends PathFollow3D
+
+
+func _ready() -> void:
+	pass
+
+
+func _process(delta: float) -> void:
+	progress_ratio += delta / 100
+"
+
+[sub_resource type="GDScript" id="GDScript_hgkxe"]
+script/source = "extends Camera3D
+
+@export var target: Node3D
+
+
+func _ready() -> void:
+	pass
+
+
+func _process(delta: float) -> void:
+	if target:
+		var target_position = target.global_transform.origin
+		look_at(target_position, Vector3.UP)
+"
+
+[node name="ViewportEtude" type="Node"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(1920, 1080)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_g8amw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport"]
+editor_description = "Temporarily placed spheres"
+material_override = SubResource("StandardMaterial3D_n8d43")
+mesh = SubResource("SphereMesh_f8own")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1, 2)
+
+[node name="Marker3D" type="Marker3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Path3D" type="Path3D" parent="SubViewportContainer/SubViewport"]
+curve = SubResource("Curve3D_wvv5q")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="SubViewportContainer/SubViewport/Path3D"]
+transform = Transform3D(0.471132, 0.015215, -0.88193, 9.3132e-10, 0.999851, 0.0172493, 0.88206, -0.00812672, 0.471063, -1.12825, -1.53385, 1.5712)
+script = SubResource("GDScript_1fsrb")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Path3D/PathFollow3D" node_paths=PackedStringArray("target")]
+transform = Transform3D(0.471133, 1.39698e-09, 0.882062, 0.015215, 0.999851, -0.00812673, -0.881931, 0.0172493, 0.471063, 0.0277219, 1.55543, -1.23765)
+script = SubResource("GDScript_hgkxe")
+target = NodePath("../../../MeshInstance3D")
