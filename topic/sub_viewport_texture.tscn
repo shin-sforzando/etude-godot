@@ -1,6 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://cubktrvnxn1ee"]
+[gd_scene load_steps=8 format=3 uid="uid://cubktrvnxn1ee"]
 
 [ext_resource type="Shader" path="res://shaders/sub_viewport_texture.gdshader" id="1_6s4le"]
+
+[sub_resource type="GDScript" id="GDScript_rnhb7"]
+script/source = "extends Node3D
+class_name SubViewportTexture
+
+# ref. https://docs.godotengine.org/ja/4.x/tutorials/shaders/using_viewport_as_texture.html
+
+func _ready() -> void:
+	pass
+
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y2kgi"]
 shader = ExtResource("1_6s4le")
@@ -21,6 +34,7 @@ roughness_texture_channel = 3
 [sub_resource type="SphereMesh" id="SphereMesh_mtv73"]
 
 [node name="SubViewportTexture" type="Node3D"]
+script = SubResource("GDScript_rnhb7")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
@@ -41,5 +55,6 @@ material_override = SubResource("StandardMaterial3D_4xy13")
 mesh = SubResource("SphereMesh_mtv73")
 
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
