@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqb3loahdciyy"]
+
+[ext_resource type="Texture2D" uid="uid://ug75gvkt781b" path="res://assets/DemoUiBackgroundNineRect.png" id="1_3yev7"]
+
+[node name="NinePatchRectEtude" type="NinePatchRect"]
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("1_3yev7")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
